@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="login-container">
+    <form action=""  method="POST">
+
+        {% csrf_token %}
+        <input type="hidden" name="register">
+
+        <h3>Register</h3>
+
+        {{ form.as_p }}
+
+        <!-- <div class="input-box">
+            <input type="email" name="email" placeholder="Email" required>
+        </div>
+        <div class="input-box">
+            <input type="text" name="username" placeholder="Username" required>
+        </div>
+        <div class="input-box">
+            <input type="password" name="password" placeholder="Password" required>
+        </div> -->
+        <div>
+            <button type="submit" onclick="showRegister()">Register</button>
+        </div>
+    </form>
+</div>
+
+{% endblock %}

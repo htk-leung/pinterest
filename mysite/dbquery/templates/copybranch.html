@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+{% block content %}
+<!doctype html>
+<html>
+    <head>
+        <h1>Copy Branch Page</h1>
+    </head>
+    <body>
+            <table border="1">
+                <thead>
+                    <tr>copy id</tr>
+                    <tr>title</tr>
+                    <tr>branch id</tr>
+                    <tr>branch name</tr>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for c in copies %}
+                    <tr>
+                        <td>{{ c.copyid }}</td>
+                        <td>{{ c.copyid.bid.title }}</td>
+                        <td>{{ c.copyid.lid_id }}</td>
+                        <td>{{ c.copyid.lid.lname }}</td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="3">No entries found.</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>   
+    </body>
+</html>
+{% endblock %}

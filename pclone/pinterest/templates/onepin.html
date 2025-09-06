@@ -1,0 +1,92 @@
+{% extends 'base.html' %}
+{% block content %}
+<!-- <div style="background: #f0f0f0; padding: 10px; margin-bottom: 20px;">
+    <strong>Debug Streams Data:</strong>
+    {{ owner }}
+</div> -->
+<!-- 'pinid': pinid,
+'owner': owner,
+'comment': comment,
+'comperm': comperm,
+'board': board, -->
+    <div class="add_pin_modal">
+        <div class="add_pin_container">
+            <div class="side" id="left_side">
+                <div class="card_onepin">
+    
+                    <div class="pin_title"></div> <!--pid, hidden-->
+
+                    <div class="pin_modal">
+            
+                        <div class="modal_foot">
+        
+                            <div class="pint_mock_icon_container" 
+                                data-url="{% url 'savepintoboard' pinid=pin.0 %}" 
+                                onclick="window.location.href=this.getAttribute('data-url')">
+                                <svg class="pint_mock_icon" xmlns="http://www.w3.org/2000/svg" height="40px" viewBox="0 -960 960 960" width="40px" fill="#e3e3e3"><path d="M480-315.33 284.67-510.67l47.33-48L446.67-444v-356h66.66v356L628-558.67l47.33 48L480-315.33ZM226.67-160q-27 0-46.84-19.83Q160-199.67 160-226.67V-362h66.67v135.33h506.66V-362H800v135.33q0 27-19.83 46.84Q760.33-160 733.33-160H226.67Z"/></svg>
+                            </div>
+                            
+                            <form action="{% url 'likepin' pinid=pin.0 %}" method="POST">
+                                {% csrf_token %}
+                                <div class="likebutton">
+                                    <button type="submit" class="pint_mock_icon_container"value="{{ pin.0 }}">
+                                        <svg xmlns="http://www.w3.org/2000/svg" height="25px" viewBox="0 -960 960 960" width="25px" fill="#e3e3e3"><path d="m480-120.67-46.67-42q-104.18-95.08-172.25-164.04Q193-395.67 152.67-450.17q-40.34-54.5-56.5-99.16Q80-594 80-640q0-91.44 61.33-152.72 61.34-61.28 152-61.28 55.34 0 103.34 25.33 48 25.34 83.33 72.67 39.33-49.33 86.33-73.67 47-24.33 100.34-24.33 90.66 0 152 61.28Q880-731.44 880-640q0 46-16.17 90.67-16.16 44.66-56.5 99.16-40.33 54.5-108.41 123.46-68.07 68.96-172.25 164.04l-46.67 42Zm0-88.66q99.49-90.67 163.75-155.5Q708-429.67 745.67-478.17q37.66-48.5 52.66-86.42t15-75.31q0-64.1-41.33-105.77-41.33-41.66-105.18-41.66-50.02 0-92.59 29.83-42.56 29.83-65.56 81.5h-58q-22.34-51-64.9-81.17-42.57-30.16-92.59-30.16-63.85 0-105.18 41.66-41.33 41.67-41.33 105.88 0 37.46 15 75.62 15 38.17 52.66 87Q252-428.33 316.67-363.83q64.66 64.5 163.33 154.5Zm0-289Z"/></svg>
+                                    </button>
+                                </div>
+                            </form>
+            
+                        </div>
+                    </div>
+                    <div class="pin_image">
+                        <img src="/{{ picurl.0 }}" alt="" srcset="">
+                    </div>
+        
+                </div>
+            </div>
+
+
+            <div class="side" id="right_side">
+
+                <div class="section1">
+                    <div class="modal_head" 
+                        data-url="{% url 'uaccount' uid=owner.0 %}" 
+                        onclick="window.location.href=this.getAttribute('data-url')">
+                        <div class="onepin_card">owner : {{ owner.1 }}</div>
+                    </div>
+                </div>
+
+                <div class="section2">
+                    <div class="goto_card" 
+                        data-url="{% url 'boardpins' board_id=board.0 %}" 
+                        onclick="window.location.href=this.getAttribute('data-url')">
+                        <div class="onepin_card">
+                            board : {{ board.1 }}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="section3">
+                    {% for comment in comments %}
+                        <p>{{comment.1}} : {{comment.2}}</p>
+                    {% endfor %}
+                </div>
+
+                <div class="section4">
+                    {% if cancomment == 1 %}
+                    <form action="{% url 'onepin' pinid=pin.0 %}" method="POST">
+                        {% csrf_token %}
+                        <input type="hidden" name="pinid" value="{{pin}}">
+                        <div class="input-box">            
+                            <input type="text" name="comment" placeholder="Comment">
+                        </div>
+                        <button type="submit">Send</button>
+                    </form>
+                    {% endif %}
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+{% endblock %}

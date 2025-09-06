@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<!-- <div style="background: #f0f0f0; padding: 10px; margin-bottom: 20px;">
+    <strong>Debug Streams Data:</strong>
+    {{ boards }}{{ picid }}
+</div> -->
+
+<div class="login-container">
+    <form action="" method="POST">
+        {% csrf_token %}
+        <h3>Choose Board</h3>
+        <input type="hidden" name="savetoboard">
+        <input type="hidden" name="picid" value="{{ picid.0 }}">
+        <select class="dropdown-menu" name="bid">
+            {% for board in boards %}
+            <option name="bid" value="{{ board.0 }}">{{ board.1 }}</option>
+            {% endfor %}
+        </select>
+
+        <div>
+            <button type="submit">Save</button>
+        </div>
+    </form>
+</div>
+
+{% endblock %}

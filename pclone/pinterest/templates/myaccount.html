@@ -1,0 +1,148 @@
+{% extends 'base.html' %}
+
+{% block content %}
+{% csrf_token %}
+
+<!-- <div style="background: #f0f0f0; padding: 10px; margin-bottom: 20px;">
+    <strong>Debug Streams Data:</strong>
+    {{ streams }}
+</div> -->
+
+
+
+<div class="profcontent">
+    <div class="account-info">
+
+        <div class="person_icon">
+            <div class="username_display">
+                <h2> {{ request.user.username }} </h2>
+            </div>
+        </div>
+
+        <div class="intro_container">
+            <div class="userintro">
+                <p>{{ intro.0 }}</p>
+            </div>
+        </div>
+
+    </div>
+    
+    <div>
+        <h2>Boards</h2>
+
+        <a href="{% url 'newboard' %}">
+            <svg xmlns="http://www.w3.org/2000/svg" height="37px" viewBox="0 -960 960 960" width="37px" fill="#e3e3e3"><path d="M450-450H200v-60h250v-250h60v250h250v60H510v250h-60v-250Z"/></svg>
+        </a>
+
+        <div class="board_container">
+
+        {% for board in boards %}
+            <div class="card card_small">
+        
+                <div class="board_title">{{ board.0 }}</div> <!--users never see this, just info for db-->
+        
+                <div class="board_modal">
+                    <div class="modal_head">
+                        <div class="goto_card" 
+                            data-url="{% url 'boardpins' board_id=board.0 %}" 
+                            onclick="window.location.href=this.getAttribute('data-url')">
+                            {{ board.1 }}
+                        </div>
+                    </div>
+
+                    <form id="request" method="POST" action="{% url 'saveboardtostream' %}">
+                        {% csrf_token %}
+                        <input type="hidden" name="request">
+                        <input type="hidden" name="bid" value="{{ board.0 }}">
+                        
+                        <div class="modal_foot">
+                            <div class="board_mock_icon_container">
+                                <a href="{% url 'saveboardtostream' %}" 
+                                onclick="event.preventDefault(); document.getElementById('request').submit()">
+                                    <svg xmlns="http://www.w3.org/2000/svg" height="40px" viewBox="0 -960 960 960" width="40px" fill="#e3e3e3"><path d="M480-315.33 284.67-510.67l47.33-48L446.67-444v-356h66.66v356L628-558.67l47.33 48L480-315.33ZM226.67-160q-27 0-46.84-19.83Q160-199.67 160-226.67V-362h66.67v135.33h506.66V-362H800v135.33q0 27-19.83 46.84Q760.33-160 733.33-160H226.67Z"/></svg>                         
+                                </a>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="board_image">
+                    <img src="/{{ board.2 }}">
+                </div>
+            </div>
+        {% empty %}
+        <p>No boards found.</p>
+        {% endfor %}
+        </div>
+    </div>
+    
+    <div>
+        <h2>Streams</h2>
+
+        <a href="{% url 'newstream' %}">
+            <svg xmlns="http://www.w3.org/2000/svg" height="37px" viewBox="0 -960 960 960" width="37px" fill="#e3e3e3"><path d="M450-450H200v-60h250v-250h60v250h250v60H510v250h-60v-250Z"/></svg>
+        </a>
+
+        <div class="board_container">
+            {% for stream in streams %}
+            <div class="card card_small">
+        
+                <div class="board_title">{{ stream.0 }}</div> <!--users never see this, just info for db-->
+        
+                <div class="board_modal">
+                    <div class="modal_head">
+                        <div class="goto_card" 
+                            data-url="{% url 'streampins' stream_id=stream.0 %}" 
+                            onclick="window.location.href=this.getAttribute('data-url')">
+                            {{ stream.1 }}
+                        </div>
+                    </div>
+
+                    <form id="request" method="POST" action="{% url 'saveboardtostream' %}">
+                        {% csrf_token %}
+                        <input type="hidden" name="request">
+                        <input type="hidden" name="bid" value="{{ board.0 }}">
+                    </form>
+
+                </div>
+                <div class="board_image">
+                    <img src="/{{ stream.2 }}">
+                </div>
+            </div>
+            {% empty %}
+            <p>No streams found.</p>
+            {% endfor %}
+        </div>
+
+    </div>
+</div>
+
+<div>
+    <h2>Friends</h2>
+
+    <div class="board_container">
+
+    {% for friend in friends %}
+        <div class="card card_small">
+    
+            <div class="board_title">{{ friend.0 }}</div> <!--users never see this, just info for db-->
+    
+            <div class="board_modal">
+                <div class="modal_head">
+                    <div class="goto_card" 
+                        data-url="{% url 'uaccount' uid=friend.0 %}" 
+                        onclick="window.location.href=this.getAttribute('data-url')">
+                        {{ friend.1 }}
+                    </div>
+                </div>
+            </div>
+            <div class="board_image">
+                <img src="/{{ friend.2 }}">
+            </div>
+        </div>
+    {% empty %}
+    <p>You still don't have friends yet! /.\</p>
+    {% endfor %}
+    </div>
+</div>
+
+{% endblock %}

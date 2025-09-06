@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<!-- <div style="background: #f0f0f0; padding: 10px; margin-bottom: 20px;">
+    <strong>Debug Streams Data:</strong>
+    {{ streams }}{{ bid }}
+</div> -->
+
+<div class="login-container">
+    <form id="savetostream" action="" method="POST">
+        {% csrf_token %}
+        <h3>Choose Stream</h3>
+        <input type="hidden" name="savetostream">
+        <input type="hidden" name="bid" value="{{ bid }}">
+        <select class="dropdown-menu" name="sid">
+            {% for stream in streams %}
+            <option name="sid" value="{{ stream.0 }}">{{ stream.1 }}</option>
+            {% endfor %}
+        </select>
+
+        <div>
+            <button type="submit">Save</button>
+        </div>
+    </form>
+</div>
+
+{% endblock %}

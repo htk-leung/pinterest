@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+    <h1>Library</h1>
+    <!-- submit buttom -->
+    <!-- every form needs action, method, token (security) -->
+
+    <form method=POST action="{% url 'loan' %}">
+        {% csrf_token %}
+        <input type="search" name="inputmid" class="form-control" 
+                placeholder="Your MID">
+        <br/>
+        <button type="submit" class="btn btn-secondary">Submit</button>
+    </form>
+
+{% endblock %}

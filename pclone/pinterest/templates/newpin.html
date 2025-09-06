@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="login-container">
+    <form action="" method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <input type="hidden" name="login">
+        <input type="hidden" name="next" value="{{ next }}">  
+
+        <h3>New Pin</h3>
+        <div class="input-box">    
+            <input type="text" name="tag0" placeholder="tag0" required>
+        </div>
+        <div class="input-box">
+            <input type="text" name="tag1" placeholder="tag1">
+        </div>
+        <div class="input-box">
+            <input type="text" name="tag2" placeholder="tag2">
+        </div>
+        <div class="input-box">
+            <input type="text" name="tag3" placeholder="tag3">
+        </div>
+        <div class="input-box">
+            <input type="text" name="tag4" placeholder="tag4">
+        </div>
+        <select class="dropdown-menu" name="bid">
+            {% for board in boards %}
+            <option class="dropdown-options" name="bid" value="{{ board.0 }}">{{ board.1 }}</option>
+            {% endfor %}
+        </select>
+
+        {{ form }}
+        <!-- <div class="image-box">
+            <input type="file" class="upload-btn" id="image" name="image">
+        </div> -->
+        <button type="submit">Submit</button>
+    </form>
+</div>
+
+{% endblock %}

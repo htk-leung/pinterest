@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="login-container">
+    <h3>Profile & Settings</h3>
+
+    <form action="" method="POST">
+        {% csrf_token %}
+        <input type="hidden" name="password">
+        <div class="input-box">            
+            <input type="text" name="password" placeholder="New Password">
+        </div>
+        <div>
+            <button type="submit">Save</button>
+        </div>
+    </form>
+
+    <form action="" method="POST">
+        {% csrf_token %}
+        <div class="input-box">            
+            <input type="text" name="intro" placeholder="Your Intro">
+        </div>
+        <div>
+            <button type="submit">Save</button>
+        </div>
+    </form>
+</div>
+
+<div class="login-container">
+    <h3>Friend Invitations</h3>
+
+    {% for request in requests %}
+        <form action="" method="POST">
+            {% csrf_token %}
+            <input type="hidden" name="uidfr" value="{{ request.1 }}">
+            <div class="request-from">            
+                <p>{{ request.0 }}</p>
+            </div>
+            <div>
+                <button type="submit" name="response" value="accept">accept</button>
+                <button type="submit" name="response" value="reject">reject</button>
+            </div>
+        </form>
+    {% endfor %}
+
+</div>
+
+{% endblock %}

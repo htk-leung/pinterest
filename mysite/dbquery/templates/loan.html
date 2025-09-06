@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+{% block content %}
+<!doctype html>
+<html>
+    <head>
+        <h1>Loan Page</h1>
+    </head>
+    <body>
+        {% if inputmid %}
+            <!-- <ul>
+                {% for loan in loan_list %}
+                    <li>{{ loan }}</li>
+                {% endfor %}
+            </ul> -->
+
+            <table border="1">
+                <thead>
+                    <tr>
+                    <tr>mid</tr>
+                    <tr>copyid</tr>
+                    <tr>loandate</tr>
+                    <tr>returndate</tr>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for loan in loan_list %}
+                    <tr>
+                        <td>
+                            <a href="{% url 'copybranch' loan.copyid.bid_id %}"> 
+                            {{ loan.copyid.bid_id }}
+                            </a>
+                        </td>
+                        <td>{{ loan.copyid.bid.title }}</td>
+                        <td>{{ loan.copyid.bid.genre }}</td>
+                        <td>{{ loan.copyid.bid.year }}</td>
+                        <td>{{ loan.copyid.lid }}</td>
+                        <td>{{ loan.copyid.lid.lname }}</td>
+                        <td>{{ loan.copyid.lid.laddress }}</td>
+                        <td>{{ loan.copyid_id }}</td>
+                        <td>{{ loan.loandate | date:"Y-m-d" }}</td>
+                        <td>{{ loan.returndate | date:"Y-m-d" }}</td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="3">No entries found.</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>   
+        {% else %}
+
+        <h2>No input for a search!</h2>
+
+        {% endif %}
+
+    </body>
+</html>
+{% endblock %}
