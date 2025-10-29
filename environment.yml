@@ -1,0 +1,11 @@
+name: pinenv
+channels:
+  - defaults
+  - conda-forge
+  - anaconda
+dependencies:
+  - python=3.12
+  - cmake
+  - psycopg2
+  - django
+  - pillow
