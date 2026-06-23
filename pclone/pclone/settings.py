@@ -121,11 +121,10 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.2/howto/static-files/
 
 STATIC_URL = '/static/'
-MEDIA_ROOT = '/media/' # so that the app knows where to find the media files
-                        # normally not stored inside the database
 
 STATICFILES_DIRS = (BASE_DIR / "static",)
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')    # so that the app knows where to find the media files
+                                                # normally not stored inside the database
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
@@ -172,3 +171,6 @@ LOGGING = {
         # },
     },
 }
+
+# tell Django to use custom users table
+AUTH_USER_MODEL = 'pinterest.Users'

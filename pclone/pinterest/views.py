@@ -17,31 +17,44 @@ from django.utils import timezone
 
 
 def register_user(request):
-	if request.method == "POST":
-		# extract info from register form
-		form = RegisterUserForm(request.POST)
-		# if form.is_valid():
-		form.save()
-		username = form.cleaned_data['username']
-		password = form.cleaned_data['password1']
-		email = form.cleaned_data['email']
+    if request.method == "POST":
+        form = RegisterUserForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            login(request, user)
+            return redirect('home')
+    else:
+        form = RegisterUserForm()
+    
+    return render(request, 'authenticate/register.html', {'form': form})
 
-		# insert to database
-		with connection.cursor() as cursor:
-			cursor.execute("""
-				INSERT INTO users (username, email) VALUES
-				(%s, %s);
-			""", [username, email])
 
-		# login
-		user = authenticate(username=username, password=password)
-		login(request, user)
-		return redirect('home')
-	else: 
-		form = RegisterUserForm()
-		return render(request, 'authenticate/register.html', {
-			'form': form,
-	})
+# def register_user(request):
+# 	if request.method == "POST":
+# 		# extract info from register form
+# 		form = RegisterUserForm(request.POST)
+# 		# if form.is_valid():
+# 		form.save()
+# 		username = form.cleaned_data['username']
+# 		password = form.cleaned_data['password1']
+# 		email = form.cleaned_data['email']
+
+# 		# insert to database
+# 		with connection.cursor() as cursor:
+# 			cursor.execute("""
+# 				INSERT INTO users (username, email) VALUES
+# 				(%s, %s);
+# 			""", [username, email])
+
+# 		# login
+# 		user = authenticate(username=username, password=password)
+# 		login(request, user)
+# 		return redirect('home')
+# 	else: 
+# 		form = RegisterUserForm()
+# 		return render(request, 'authenticate/register.html', {
+# 			'form': form,
+# 	})
 
 def login_user(request):
 	next_url = request.GET.get('next', '') or reverse('myaccount')
