@@ -16,9 +16,12 @@ This repository hosts the source code of a full-stack app that emulates the func
 The writeup describes project details in the following order:
 
 1. App architecture
-1. Frontend design
 1. Backend design
-4. Build & Run
+    1. Database schema & ER Diagram
+    2. App setup
+    3. Design trade-offs
+1. Frontend design
+1. Build & Run
 
 *I do not own any of the images used as sample entries in the app. These are works of professional photographers including, in alphabetical order, Andreas Gursky, Fan Ho, Joel Meyerowitz, and Helene Schmidt.
 
@@ -216,7 +219,7 @@ Send the user back to the page they came from
 
 ---
 
-#### 2.3 Design tradeoffs
+#### 2.3 Design trade-offs
 
 Sample code above illustrates how the application layer interact with the database to achieve the designated goal of each page function. This means that trade-offs exist between the application and database layer in deciding which layer handles which part of the solution.
 
